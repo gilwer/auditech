@@ -1,9 +1,9 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-2:473822375920:task-definition/auditech-challenge:2",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-2:473822375920:task-definition/auditech-challenge:3",
     "containerDefinitions": [
         {
             "name": "be",
-            "image": "public.ecr.aws/j8h3x6k0/auditech-test",
+            "image": "473822375920.dkr.ecr.us-east-2.amazonaws.com/auditech-test",
             "cpu": 0,
             "portMappings": [
                 {
@@ -23,11 +23,18 @@
         }
     ],
     "family": "auditech-challenge",
+    "executionRoleArn": "arn:aws:iam::473822375920:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 2,
+    "revision": 3,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        },
         {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
         },
@@ -49,7 +56,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2023-05-06T06:42:22.444Z",
+    "registeredAt": "2023-05-06T08:39:43.756Z",
     "registeredBy": "arn:aws:iam::473822375920:root",
     "tags": []
 }
