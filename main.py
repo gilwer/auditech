@@ -2,6 +2,7 @@ from typing import Dict, Any
 
 import uvicorn
 from fastapi import FastAPI, Request, Depends
+from starlette import status
 
 from models import NormalizedPullRequest
 from repo import PullRequest, SessionLocal, Repo
@@ -26,6 +27,10 @@ async def handle_report(payload: Dict[str, Any], repo: Repo = Depends(get_repo))
 @app.get("/report")
 async def get_webhook_events(repo: Repo = Depends(get_repo)):
     return repo.get_pr()
+
+@app.get("/", status_code=status.HTTP_200_OK)
+async def health():
+    return {'healthcheck': 'Everything OK!'}
 
 
 if __name__ == "__main__":
