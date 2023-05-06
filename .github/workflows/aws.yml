@@ -35,7 +35,7 @@ env:
   ECR_REPOSITORY: auditech-test           # set this to your Amazon ECR repository name public.ecr.aws/j8h3x6k0/auditech-test
   ECS_SERVICE: be                 # set this to your Amazon ECS service name
   ECS_CLUSTER: auditech-test                 # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: auditech-challenge-revision2.json # set this to the path to your Amazon ECS task definition
+  ECS_TASK_DEFINITION: .github/workflows/auditech-challenge-revision2.json # set this to the path to your Amazon ECS task definition
                                                # file, e.g. .aws/task-definition.json
   CONTAINER_NAME: be         # set this to the name of the container in the
                                                # containerDefinitions section of your task definition
