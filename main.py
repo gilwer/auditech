@@ -1,32 +1,41 @@
 from typing import Dict, Any
 
 import uvicorn
-from fastapi import FastAPI, Request, Depends
+from fastapi import FastAPI, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from starlette import status
 
 from models import NormalizedPullRequest
-from repo import PullRequest, SessionLocal, Repo
+from repo import Repo, DetaRepo
 
 app = FastAPI()
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 def get_repo():
-    return Repo()
+    return DetaRepo()
 
 
-# Endpoint to handle incoming webhook events
-@app.post("/report")
+@app.post("/pull-request", status_code=status.HTTP_200_OK)
 async def handle_report(payload: Dict[str, Any], repo: Repo = Depends(get_repo)):
     pr = payload['pull_request']
     normalized_pr = NormalizedPullRequest.parse_obj(pr)
     repo.add_pull_request(normalized_pr)
-    return {"message": "Webhook event stored in database"}
+    return {"message": "Pull request successfully stored"}
 
 
-# Endpoint to retrieve stored webhook events
-@app.get("/report")
+@app.get("/pull-request", status_code=status.HTTP_200_OK)
 async def get_webhook_events(repo: Repo = Depends(get_repo)):
     return repo.get_pr()
+
 
 @app.get("/", status_code=status.HTTP_200_OK)
 async def health():

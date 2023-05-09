@@ -5,6 +5,7 @@ class User(BaseModel):
     login: str
     id: int
 
+
 class NormalizedPullRequest(BaseModel):
     url: str
     id: int
